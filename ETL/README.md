@@ -1,35 +1,12 @@
-# Estrutura e Documentação - ETL
+# ETL — SSIS project
 
-## Descrição
+Two SSIS packages load the warehouse. Run them in this order.
 
-Esta documentação tem como objetivo apresentar a arquitetura do solução ETL. 
+| Package | English name | Loads |
+|---|---|---|
+| `Carga Dimensões.dtsx` | Load Dimensions | The seven `dim.*` tables from Excel, CSV and inline queries |
+| `Carga Fatos.dtsx` | Load Facts | `fact.Fato_001` … `fact.Fato_005` from `DW_SUCOS.dbo.Fato_00n` |
 
-Foi criado dois pacotes, cada um deles tem o foco na extração, transformação e carregamento das tabelas de dimensão e fatos.
+Full documentation: **[ETL](../docs/etl.md)** — task flow, parameters, connections, limitations.
 
-### Pacotes:
-
-| Pasta/Solução   |Objetivo   |
-|---|---|
-| Carga Dimensões.dtsx | Realiza a extração, transformações e carregamentos necessário em todas as tabelas de dimensão criadas  |
-| Carga Fatos.dtsx | Realiza a extração, transformações e carregamentos necessário em todas as tabelas de fatos criadas |
-
-
----
----
----
----
----
-
-# Structure and Documentation - ETL
-
-## Description
-This documentation aims to present the architecture of the ETL solution.
-
-Two packages have been created, each focusing on the extraction, transformation, and loading of dimension and fact tables.
-
-### Pacotes (Packages):
-
-| Pasta/Solução   |Objetivo   |
-|---|---|
-| Carga Dimensões.dtsx | Performs the necessary extraction, transformations, and loading in all dimension tables created  |
-| Carga Fatos.dtsx | Performs the necessary extraction, transformations, and loading in all fact tables created |
+> Before running: the Excel and CSV connection managers use absolute paths from the original author's machine. Repoint them to [Sources/Fontes](../Sources/Fontes) first. See [Getting started](../docs/getting-started.md#4-repoint-the-ssis-file-connections).

@@ -1,6 +1,14 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
+# Visual Studio state
+.vs/
+*.suo
+*.user
+*.dbmdl
+*.jfm
 
-/fruit_juice/fruit_juice/fruit_juice.dbmdl
-/fruit_juice/fruit_juice/fruit_juice.jfm
+# Build output
+bin/
+obj/
+
+# Power BI local cache
+*.pbix.tmp
+.pbi/

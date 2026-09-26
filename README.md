@@ -1,99 +1,69 @@
-# Estrutura e Documentação do Projeto
+# Zero-Cost Data Warehouse — Fruit Juice BI
 
-## Instalação e Configuração
-#### 1. Clone o repositório:
+An end-to-end Business Intelligence project built entirely on free tooling: Excel/CSV sources are loaded through **SSIS** into a **SQL Server** star-schema data warehouse, exposed through **SSAS Multidimensional (OLAP)** cubes, and visualised in a **Power BI** dashboard.
 
-```bash
-git clone https://github.com/lorenzouriel/create-free-dw-and-olap-for-sales-analysis.git
+The case study is *Sucos de Frutas* (Fruit Juice Co.), a beverage manufacturer that needs to analyse revenue, costs, freight and targets by product, customer, factory, sales organisation and time.
 
-cd create-free-dw-and-olap-for-sales-analysis
-```
+![Architecture](docs/assets/architecture.png)
 
-#### 2. Certifique-se de ter instalado:
-- Visual Studio 2019
-- Integration Services
-- Multidimensional Analysis Services
-- SQL Server (SGBD / SSIS / SSAS)
-- Power BI 
+## What's inside
 
-## Descrição do Projeto
+| Layer | Folder | Technology | What it does |
+|---|---|---|---|
+| Sources | [Sources](Sources/README.md) | Excel, CSV, SQL scripts | Raw inputs, helper scripts and a full database backup |
+| Data warehouse | [fruit_juice](fruit_juice/README.md) | SQL Server (SSDT database project) | Star-schema DDL: 7 dimensions, 5 fact tables, 1 stored procedure |
+| ETL | [ETL](ETL/README.md) | SSIS | Two packages: load dimensions, load facts |
+| OLAP | [OLAP](OLAP/README.md) | SSAS Multidimensional | 4 cubes, 5 dimensions with hierarchies |
+| Presentation | [Dashboard](Dashboard/README.md) | Power BI | Live-connection report on top of the cubes |
+| Documentation | [docs](docs/README.md) | Markdown | Architecture, data model, setup guide, glossary, tutorial |
 
-O projeto visa detalhar todas as etapas de um projeto de BI, vamos passar pelas planilhas, ETL, Bancos Relacionais, Cubos OLAP e o Power BI para análises performáticas.
+All projects are loaded by the Visual Studio solution [fruit_juice.sln](fruit_juice.sln).
 
+## Quick start
 
-### Pastas e Soluçoes:
-
-| Pasta/Solução   |Objetivo   |
-|---|---|
-| [fruit_juice.sln](README.md) | Solução que foi criada e desenvolvida para carregar as soluções: Database Project (fruit_juice), Integration Services Projects (ETL), Analysis Services Project (OLAP)  |
-| [fruit_juice](fruit_juice/README.md) | Estrutura do banco de dados criada atráves Database Project, como: Tabelas, Stored Procedures, PKs e FKs |
-| [ETL](ETL/README.md)| Pacotes que foram criados para realizar a extração, transformação e carregamento dos dados |
-| [OLAP](OLAP/README.md)| Possui os Cubos, dimensões, conexões e partições criadas para dar vida ao OLAP  |
-| [Sources](Sources/README.md) | Guarda todas as fontes de dados utilizadas na extração. Adicionei também um Backup da base de dados relacional  |
-| [Dashboard](Dashboard/README.md) | Os ativos que foram utilizados na criação e o Dashboard  |
-| [Tutorials](Tutorials/README.md) | Foi realizado um tutorial para que interessados no projeto possam replicar e aprender |
-
-## Ferramentas / Tecnologias
-- Excel
-- Visual Studio 2019 (Database Project, Integration Services, Multidimensional Analysis Services)
-- SQL Server (SGBD / SSIS / SSAS)
-- Power BI
-- Power BI Serviço
-- Figma
-
-## Arquitetura
-![Arquitetura](/Tutorials/Architecture%20v3.png)
-
----
----
----
----
----
-
-# Project Structure and Documentation
-
-## Installation and Configuration
-#### 1. Clone the repository:
+**Prerequisites** — Windows, SQL Server (Database Engine, Integration Services, Analysis Services in *Multidimensional* mode), Visual Studio 2019 with the SSDT / SSIS / SSAS project extensions, and Power BI Desktop. SQL Server Developer and Express editions and Power BI Desktop are free.
 
 ```bash
-git clone https://github.com/lorenzouriel/create-free-dw-and-olap-for-sales-analysis.git
-
-cd create-free-dw-and-olap-for-sales-analysis
+git clone https://github.com/lorenzouriel/zero-cost-dw.git
+cd zero-cost-dw
 ```
 
-#### 2. Make sure you have installed::
-- Visual Studio 2019
-- Integration Services
-- Multidimensional Analysis Services
-- SQL Server (SGBD / SSIS / SSAS)
-- Power BI 
+Then follow the [Getting Started guide](docs/getting-started.md): create the database, repoint the SSIS Excel/CSV connections, run the packages, deploy the cubes, open the dashboard.
 
-## Project Description
+> **Shortcut:** [Sources/FULL.zip](Sources/FULL.zip) contains a full backup of the populated warehouse (`DW_SUCOS_FULL.bak`) if you only want to explore the cubes and dashboard without running the ETL.
 
-The project aims to detail all the stages of a BI project, covering spreadsheets, ETL, Relational Databases, OLAP Cubes, and Power BI for high-performance analysis.
+## Documentation
 
-
-### Folders and Solutions:
-
-| Folder/Solution   | Purpose   |
+| Document | Contents |
 |---|---|
-| [fruit_juice.sln](README.md) | Solution created and developed to host the following solutions: Database Project (fruit_juice), Integration Services Projects (ETL), Analysis Services Project (OLAP)  |
-| [fruit_juice](fruit_juice/README.md) | Structure of the database created through the Database Project, including Tables, Stored Procedures, PKs, and FKs |
-| [ETL](ETL/README.md)| Packages created for data extraction, transformation, and loading |
-| [OLAP](OLAP/README.md)| Contains Cubes, dimensions, connections, and partitions created to bring OLAP to life  |
-| [Sources](Sources/README.md) | Stores all data sources used in extraction. Also includes a backup of the relational database  |
-| [Dashboard](Dashboard/README.md) | Assets used in the creation of the dashboard  |
-| [Tutorials](Tutorials/README.md) | A tutorial has been provided for project enthusiasts to replicate and learn |
+| [Architecture](docs/architecture.md) | Layers, data flow, technology choices |
+| [Data model](docs/data-model.md) | Every dimension and fact table, grain, keys, ERD |
+| [ETL](docs/etl.md) | Package flow, parameters, source-to-target mapping |
+| [OLAP](docs/olap.md) | Cubes, measures, hierarchies, the "complete fact" table |
+| [Dashboard](docs/dashboard.md) | Report pages and how it connects |
+| [Getting started](docs/getting-started.md) | Step-by-step setup and known gotchas |
+| [Glossary](docs/glossary.md) | Portuguese → English name mapping for all objects |
+| [Tutorial](docs/tutorial.md) | Full walkthrough of how the project was built (PDF, Portuguese) |
 
+## A note on language
 
-## Techs / Tools
-- Excel
-- Visual Studio 2019 (Database Project, Integration Services, Multidimensional Analysis Services)
-- SQL Server (SGBD / SSIS / SSAS)
-- Power BI
-- Power BI Service
-- Figma
+The documentation is in English. The **database objects, SSIS packages, cubes, source files and dashboard labels are still in Portuguese** (`dim.cliente`, `Fato_001`, `Faturamento`, …) because the ETL packages, cubes and the `.pbix` bind to those names. Renaming them means editing each artifact in its Visual Studio designer; until then, use the [glossary](docs/glossary.md) to translate.
 
+## Repository layout
 
-## Architecture
-![Arquitetura](/Tutorials/Architecture%20v3.png)
+```
+.
+├── fruit_juice.sln          Visual Studio solution (database + ETL + OLAP)
+├── fruit_juice/             SQL Server database project (DDL)
+├── ETL/                     SSIS project
+├── OLAP/                    SSAS Multidimensional project
+├── Sources/                 Raw data, helper scripts, database backup
+├── Dashboard/               Power BI report and its background images
+└── docs/                    All documentation and diagrams
+```
+
+Build output (`bin/`, `obj/`) and Visual Studio state (`.vs/`, `*.user`) are git-ignored.
+
+## Tech stack
+
+Excel · CSV · T-SQL · SQL Server · SSIS · SSAS Multidimensional (MDX) · Power BI Desktop / Service · Visual Studio 2019 · Figma (dashboard backgrounds)
